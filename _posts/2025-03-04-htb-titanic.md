@@ -1,6 +1,6 @@
 ---
 title: "HTB - Titanic (Easy | Linux | Web)"
-date: 2025-03-04
+date: 2025-03-04 00:00:00 +0000
 categories: [HackTheBox, Web]
 tags: [htb, lfi, gitea, sqlite, hashcat, imagemagick, cve-2024-41817, path-traversal]
 ---
