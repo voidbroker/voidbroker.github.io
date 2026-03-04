@@ -4,7 +4,7 @@ date: 2025-03-04 00:00:00 +0000
 categories: [HackTheBox, Web]
 tags: [htb, lfi, gitea, sqlite, hashcat, imagemagick, cve-2024-41817, path-traversal]
 image:
-  path: https://i.pinimg.com/originals/ff/91/42/ff914235a6edc4bd006b5b0d48b50992.gif
+  path: /assets/img/posts/titanic-preview.gif
 ---
 
 ## Overview
