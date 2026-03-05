@@ -4,7 +4,7 @@ date: 2025-08-15
 categories: [HackTheBox, Active Directory, pre2k, DPAPI]
 tags: [htb, active-directory, kerberos, dpapi, pre2k, gmsa, as-rep-roasting, constrained-delegation, bloodhound, impacket]
 image:
-  path: https://i.pinimg.com/originals/ff/a9/6e/ffa96ede4039820cdac1185df70b8dc7.gif
+  path: https://i.pinimg.com/originals/1d/83/b2/1d83b2819267242133c8839aa666dc2f.gif
 ---
 
 ## Overview
