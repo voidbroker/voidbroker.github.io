@@ -4,7 +4,7 @@ date: 2025-02-17 00:00:00 +0000
 categories: [HackTheBox, Web]
 tags: [htb, cif, pymatgen, rce, sqlite, hash-cracking, aiohttp, cve-2024-23334, path-traversal, port-forwarding]
 image:
-  path: https://i.pinimg.com/originals/0a/f5/9f/0af59f26773f98c2c29352c11f9d09b6.gif
+  path: https://i.pinimg.com/originals/4e/83/68/4e836835dcb96ed29267dc4d09850e4c.gif
 ---
 
 ## Overview

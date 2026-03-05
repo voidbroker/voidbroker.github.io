@@ -4,7 +4,7 @@ date: 2025-02-16 00:00:00 +0000
 categories: [HackTheBox, Active Directory]
 tags: [htb, mssql, xp-cmdshell, smb, bloodhound, writeowner, dacl, certipy, adcs, esc, shadow-credentials, evil-winrm, impacket]
 image:
-  path: https://i.pinimg.com/originals/88/53/30/885330328dd37156ec1b90d1b918bf1d.gif
+  path: https://i.pinimg.com/originals/77/b0/0b/77b00b7fe0203e45c30e27050b999da0.gif
 ---
 
 ## Overview
