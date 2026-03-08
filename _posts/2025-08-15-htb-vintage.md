@@ -4,7 +4,7 @@ date: 2025-08-15
 categories: [HackTheBox, Active Directory, pre2k, DPAPI]
 tags: [htb, htb-vintage, active-directory, assume-breach, windows, nmap, netexec, bloodhound, bloodhound-python, kerberos, pre-windows-2000, gmsa, bloodyad, genericwrite, addself, targeted-kerberoast, targetedkerberoast-py, gettgt, hashcat, password-spray, dpapi, dpapi-py, impacket, evil-winrm, rbcd, constrained-delegation, getST, wmiexec, oscp-like, cpts-like]
 image:
-  path: https://i.pinimg.com/originals/1d/83/b2/1d83b2819267242133c8839aa666dc2f.gif
+  path: /assets/img/posts/vintage/vintage.png
 ---
 
 ## Overview
